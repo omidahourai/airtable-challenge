@@ -1,9 +1,12 @@
 import { compose, withProps } from 'recompose'
-import * as selectors from 'selectors'
+import { connect } from 'react-redux'
 import App from 'components/App'
+import * as selectors from 'selectors'
 
 export default compose(
-  withProps({
-    data: [1, 2, 3],
-  })
+  connect(state => ({
+    data: state.events,
+    firstDate: selectors.getFirstDate(state),
+    lastDate: selectors.getLastDate(state),
+  })),
 )(App)

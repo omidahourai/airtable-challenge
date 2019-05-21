@@ -5,4 +5,9 @@ const Grid = styled.div``
 
 const Bar = styled.div``
 
-export default props => <Grid>{JSON.stringify(props.data)}</Grid>
+export default props => (
+  <Grid>
+  <div>Start: {props.firstDate}</div>
+  <div>End: {props.lastDate}</div>
+  </Grid>
+)
