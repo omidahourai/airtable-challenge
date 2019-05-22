@@ -6,7 +6,7 @@ import * as selectors from 'selectors'
 export default compose(
   connect(state => ({
     data: selectors.getEvents(state),
-    timeline: selectors.getTimelineDateRange(state),
+    timeline: selectors.getTimelineWithEvents(state),
   })),
   withProps(props => console.log(props))
 )(App)

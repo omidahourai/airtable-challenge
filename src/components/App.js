@@ -30,6 +30,9 @@ export default props => (
             <div>{item.dayOfWeek}</div>
           </Header>
           <Content>
+            {item.events && item.events.map(event => (
+              <div>{event.start} - {event.end}</div>
+            ))}
           </Content>
         </Column>
       ))}
