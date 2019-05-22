@@ -6,9 +6,6 @@ export const normalizeDate = date => {
   return date
 }
 
-const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-
 export const getEvents = state => state.events
 const sortStartDates = state => getEvents(state).sort((a, b) => (a.start < b.start ? -1 : 0))
 const sortEndDates = state => getEvents(state).sort((a, b) => (a.end < b.end ? -1 : 0))
@@ -35,11 +32,13 @@ export const getTimelineDateRange = createSelector(
     let day = normalizeDate(new Date(start))
     const final = normalizeDate(new Date(end))
     do {
+      const m = moment(day)
       dates.push({
-        month: monthNames[day.getUTCMonth()],
-        dayNum: day.getUTCDate(),
-        dayOfWeek: dayNames[day.getUTCDay()],
-        dateStr: moment(day).format('YYYY-MM-DD'),
+        month: m.format('MMM'),
+        dayNum: m.format('E'),
+        dayOfWeekShort: m.format('dd'),
+        dayOfWeek: m.format('dddd'),//dayNames[day.getUTCDay()],
+        dateStr: m.format('YYYY-MM-DD'),
       })
       day.setDate(day.getDate()+1)
     } while (day <= final)
