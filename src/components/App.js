@@ -7,7 +7,12 @@ const Bar = styled.div``
 
 export default props => (
   <Grid>
-  <div>Start: {props.firstDate}</div>
-  <div>End: {props.lastDate}</div>
+    <ul>
+      {props.timeline.map(item => (
+        <li>
+          {item.dayOfWeek}, {item.month} {item.dayNum}
+        </li>
+      ))}
+    </ul>
   </Grid>
 )

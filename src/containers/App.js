@@ -5,8 +5,8 @@ import * as selectors from 'selectors'
 
 export default compose(
   connect(state => ({
-    data: state.events,
-    firstDate: selectors.getFirstDate(state),
-    lastDate: selectors.getLastDate(state),
+    data: selectors.getEvents(state),
+    timeline: selectors.getTimelineDateRange(state),
   })),
+  withProps(props => console.log(props))
 )(App)
