@@ -6,9 +6,10 @@ const Header = styled.div`
 `
 const Content = styled.div`
   height: 24px;
-  grid-row-start: 2;
-  grid-column-end: span ${({span}) => span || 1};
-  background-color: #CCC;
+  grid-row-start: ${({row}) => row ? row + 2 : 2 };
+  grid-column-end: span ${({col}) => col || 1};
+  background-color: ${({bg}) => bg || '#CCC'};
+  color: ${({color}) => color || '#000'};
 `
 const Column = styled.div`
   display: contents;
@@ -23,17 +24,22 @@ const Grid = styled.div`
 
 export default props => (
   <Grid col={props.timeline.length}>
-      {props.timeline.map((item, idx) => (
-        <Column key={item.dateStr} col={idx+1}>
+      {props.timeline.map(({date, events}, idx) => (
+        <Column key={date} col={idx+1}>
           <Header>
-            <div>{item.month} {item.dayNum}</div>
-            <div>{item.dayOfWeek}</div>
+            <div>{props.formatDate(date)}</div>
+            <div>{props.formatDay(date)}</div>
           </Header>
-          <Content>
-            {item.events && item.events.map(event => (
-              <div>{event.start} - {event.end}</div>
-            ))}
-          </Content>
+          {events.map(event => (
+            <Content
+              key={event.id}
+              row={event.rowSpan}
+              col={event.colSpan}
+              bg={event.bg}
+              color={event.color}>
+                {event.name}
+            </Content>
+          ))}
         </Column>
       ))}
   </Grid>

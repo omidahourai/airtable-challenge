@@ -1,78 +1,130 @@
 import { createSelector } from 'reselect'
 import moment from 'moment'
 
-export const normalizeDate = date => {
+const oneDay = 24*60*60*1000
+const getDateSpan = (d1, d2) => Math.round(Math.abs(((new Date(d1)).getTime() - (new Date(d2)).getTime())/(oneDay)))
+const getEvents = state => state.data.events
+
+const normalizeDate = date => {
   date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
   return date
 }
 
-export const getEvents = state => state.events
 const getEventsSortedByStartDates = createSelector(
   [getEvents],
   events => events.sort((a, b) => (a.start < b.start ? -1 : 0))
 )
+
 const getEventsSortedByEndDates = createSelector(
   [getEvents],
   events => events.sort((a, b) => (a.end < b.end ? -1 : 0))
 )
 
-// const getEventsSortedByStartDates = state => getEvents(state).sort((a, b) => (a.start < b.start ? -1 : 0))
-// const getEventsSortedByEndDates = state => getEvents(state).sort((a, b) => (a.end < b.end ? -1 : 0))
-
-export const getFirstDate = createSelector(
-  [state => state, getEventsSortedByStartDates],
-  (state, events) => events[0].start
+const getFirstDate = createSelector(
+  [getEventsSortedByStartDates],
+  (events) => events[0].start
 )
 
-export const getLastDate = createSelector(
-  [state => state, getEventsSortedByEndDates],
-  (state, events) => events[events.length - 1].end
+const getLastDate = createSelector(
+  [getEventsSortedByEndDates],
+  (events) => events[events.length - 1].end
 )
 
-export const getDateRange = createSelector(
-  [state => state, getFirstDate, getLastDate],
-  (state, start, end) => ({ start, end })
+const getDateRange = createSelector(
+  [getFirstDate, getLastDate],
+  (start, end) => ({ start, end })
 )
 
-export const getTimelineDateRange = createSelector(
-  [state => state, getDateRange],
-  (state, {start, end}) => {
+export const getTimelineDatesRange = createSelector(
+  [getDateRange],
+  ({start, end}) => {
     const dates = []
     let day = normalizeDate(new Date(start))
     const final = normalizeDate(new Date(end))
     do {
-      const m = moment(day)
-      dates.push({
-        month: m.format('MMM'),
-        dayNum: m.format('E'),
-        dayOfWeekShort: m.format('dd'),
-        dayOfWeek: m.format('dddd'),//dayNames[day.getUTCDay()],
-        dateStr: m.format('YYYY-MM-DD'),
-      })
+      dates.push(moment(day).format('YYYY-MM-DD'))
       day.setDate(day.getDate()+1)
     } while (day <= final)
     return dates
   }
 )
 
-const oneDay = 24*60*60*1000
-const getDateSpan = (d1, d2) => Math.round(Math.abs(((new Date(d1)).getTime() - (new Date(d2)).getTime())/(oneDay)))
-
-export const getTimelineWithEvents = createSelector([
-  state => state,
-  getEventsSortedByStartDates,
-  getTimelineDateRange,
-], (state, events, timeline) => timeline.map(date => {
-    const items = events.filter(e => e.start === date.dateStr)
-    if (items.length) {
-      return {
-        ...date,
-        events: items.map(event => ({
-          ...event,
-          span: getDateSpan(event.start, event.end),
-        }))
-      }
+export const getEventsWithDatesRange = createSelector(
+  [getEventsSortedByStartDates],
+  (events) => events.map(event => {
+    const colSpan = getDateSpan(event.start, event.end)
+    const start = normalizeDate(new Date(event.start))
+    const end = normalizeDate(new Date(event.end))
+    let day = start
+    const dates = []
+    for (let i=0; i<colSpan; i++) {
+      dates.push(moment(day).format('YYYY-MM-DD'))
+      let next = new Date(day)
+      next.setDate(day.getDate()+1)
+      day = next
     }
-    return date
+    if (start !== end) {
+      dates.push(moment(end).format('YYYY-MM-DD'))
+    }
+    return {
+      ...event,
+      colSpan,
+      dates
+    }
   })
 )
+
+/*
+Returns event id array for each date
+*/
+export const getTimelineDatesEventIds = createSelector(
+  [getEventsWithDatesRange, getTimelineDatesRange],
+  (eventWithDatesRange, timelineDatesRange) => timelineDatesRange
+    .map(date => eventWithDatesRange
+      .filter(({dates}) => dates.includes(date))
+      .map(({id}) => id)
+))
+
+/*
+Assign events to timeline with row span
+*/
+export const getEventsWithRowColSpan = createSelector(
+  [getEventsWithDatesRange, getTimelineDatesEventIds],
+  (eventWithDatesRange, timelineDatesEventIds) => {
+    const events = eventWithDatesRange.map(o => ({...o})) // clone objects
+    timelineDatesEventIds.forEach(eventIds => {
+      eventIds.forEach(id => {
+        const dateEventsRowSpan = events
+          .filter(e => e.rowSpan && eventIds.includes(e.id))
+          .map(({rowSpan}) => rowSpan)
+        const index = events.findIndex(e => e.id === id)
+        if (!events[index].rowSpan) {
+          let count = 0
+          let found = false
+          do {
+            count += 1
+            if (!dateEventsRowSpan.includes(count)) {
+              found = true
+            }
+          } while (!found)
+          events[index].rowSpan = count
+        }
+      })
+    })
+    return events
+})
+
+export const getTimelineWithStartEvents = createSelector(
+  [getEventsSortedByStartDates, getTimelineDatesRange],
+  (events, timelineDatesRange) => timelineDatesRange.map(date => {
+    const items = events.filter(e => e.start === date)
+    return items.length
+      ? { date, eventIds: items.map(({id}) => id) }
+      : { date, eventIds: [] }
+  }))
+
+export const getTimelineWithParsedEvents = createSelector(
+  [getEventsWithRowColSpan, getTimelineWithStartEvents],
+  (events, timeline) => timeline.map(({date, eventIds}) => ({
+    date, events: eventIds.map(id => events.find(e => e.id === id))
+})))
