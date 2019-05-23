@@ -10,6 +10,8 @@ export default compose(
     timeline: selectors.getTimelineWithParsedEvents(state),
   })),
   withState('zoomWidth', 'setZoomWidth', 100),
+  withState('editingEventId', 'setEditingEventId', null),
+  withState('editingEventText', 'setEditingEventText', ''),
   withProps({
     formatDate: date => moment(date).format('MMM D'),
     formatDay: date => moment(date).format('dddd'),
@@ -17,6 +19,15 @@ export default compose(
   withHandlers({
     zoomOut: props => e => props.setZoomWidth(props.zoomWidth-25),
     zoomIn: props => e => props.setZoomWidth(props.zoomWidth+25),
+    editEvent: props => ({id, name}) => {
+      props.setEditingEventText(name)
+      props.setEditingEventId(id)
+    },
+    saveEvent: props => e => {
+      // props.setEditingEventText(name)
+      // console.log('onBlur')
+      props.setEditingEventId(null)
+    },
   }),
   withProps(props => console.log(props))
 )(App)

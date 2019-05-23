@@ -147,13 +147,29 @@ export default props => (
               <div>{props.formatDate(date)}</div>
               <div>{props.formatDay(date)}</div>
             </Header>
-            {events.map(event => (
+            {events.map(event => props.editingEventId === event.id ? (
               <Content
                 key={event.id}
                 row={event.rowSpan}
                 col={event.colSpan}
                 bg={event.bg}
-                color={event.color}>
+                color={event.color}
+                >
+                  <input
+                    value={props.editingEventText}
+                    onChange={e => props.setEditingEventText(e.target.value)}
+                    onBlur={props.saveEvent}
+                  />
+              </Content>
+            ) : (
+              <Content
+                key={event.id}
+                row={event.rowSpan}
+                col={event.colSpan}
+                bg={event.bg}
+                color={event.color}
+                onDoubleClick={() => props.editEvent(event)}
+                >
                   <p>{event.name}</p>
               </Content>
             ))}
