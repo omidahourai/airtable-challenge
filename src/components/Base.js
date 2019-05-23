@@ -21,7 +21,7 @@ export const Button = styled.button`
   color: ${({ color }) => (color ? colors[color] : colors.primary)};
   border-color: ${({ color }) => (color ? colors[color] : colors.primary)};
   border-radius: 4px;
-  background-color: #FFF;
+  background-color: #fff;
   &:focus,
   &:active {
     outline: 0;
@@ -29,7 +29,7 @@ export const Button = styled.button`
   &:hover {
     cursor: pointer;
     filter: brightness(1.2);
-    color: #FFF;
+    color: #fff;
     box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.25);
     background-color: ${({ color }) => (color ? colors[color] : colors.primary)};
   }

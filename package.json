@@ -1,7 +1,12 @@
 {
-  "name": "airtable",
-  "version": "0.1.0",
+  "name": "airtable-challenge",
+  "version": "1.0.0",
   "private": true,
+  "license": "ISC",
+  "engines": {
+    "node": ">=10.14.2",
+    "yarn": ">=1.15.2"
+  },
   "dependencies": {
     "moment": "^2.24.0",
     "react": "^16.8.6",

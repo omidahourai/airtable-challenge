@@ -5,7 +5,7 @@ const timelineItems = [
     end: '2018-01-05',
     name: 'First item',
     bg: '#4286f4',
-    color: '#FFF'
+    color: '#FFF',
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ const timelineItems = [
     end: '2018-01-08',
     name: 'Second item',
     bg: '#8941f4',
-    color: '#FFF'
+    color: '#FFF',
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ const timelineItems = [
     end: '2018-01-13',
     name: 'Another item',
     bg: '#d041f4',
-    color: '#FFF'
+    color: '#FFF',
   },
   {
     id: 4,
@@ -29,7 +29,7 @@ const timelineItems = [
     end: '2018-01-14',
     name: 'Another item',
     bg: '#f441c1',
-    color: '#FFF'
+    color: '#FFF',
   },
   {
     id: 5,
@@ -37,7 +37,7 @@ const timelineItems = [
     end: '2018-02-15',
     name: 'Third item',
     bg: '#f44141',
-    color: '#FFF'
+    color: '#FFF',
   },
   {
     id: 6,
@@ -45,7 +45,7 @@ const timelineItems = [
     end: '2018-02-16',
     name: 'Fourth item with a super long name',
     bg: '#f48841',
-    color: '#FFF'
+    color: '#FFF',
   },
   {
     id: 7,
@@ -53,7 +53,7 @@ const timelineItems = [
     end: '2018-02-02',
     name: 'Fifth item with a super long name',
     bg: '#f4b541',
-    color: '#FFF'
+    color: '#FFF',
   },
   {
     id: 8,
@@ -61,7 +61,7 @@ const timelineItems = [
     end: '2018-01-05',
     name: 'First item',
     bg: '#f4df41',
-    color: '#FFF'
+    color: '#FFF',
   },
   {
     id: 9,
@@ -69,7 +69,7 @@ const timelineItems = [
     end: '2018-01-08',
     name: 'Second item',
     bg: '#dcf441',
-    color: '#FFF'
+    color: '#FFF',
   },
   {
     id: 10,
@@ -77,7 +77,7 @@ const timelineItems = [
     end: '2018-01-13',
     name: 'Another item',
     bg: '#97f441',
-    color: '#FFF'
+    color: '#FFF',
   },
   {
     id: 11,
@@ -85,7 +85,7 @@ const timelineItems = [
     end: '2018-01-09',
     name: 'Another item',
     bg: '#55f441',
-    color: '#FFF'
+    color: '#FFF',
   },
   {
     id: 12,
@@ -93,7 +93,7 @@ const timelineItems = [
     end: '2018-02-15',
     name: 'Third item',
     bg: '#41f473',
-    color: '#FFF'
+    color: '#FFF',
   },
   {
     id: 13,
@@ -101,7 +101,7 @@ const timelineItems = [
     end: '2018-02-16',
     name: 'Fourth item with a super long name',
     bg: '#41f4ca',
-    color: '#FFF'
+    color: '#FFF',
   },
   {
     id: 14,
@@ -109,7 +109,7 @@ const timelineItems = [
     end: '2018-02-02',
     name: 'Fifth item with a super long name',
     bg: '#41d3f4',
-    color: '#FFF'
+    color: '#FFF',
   },
 ]
 

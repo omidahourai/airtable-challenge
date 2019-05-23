@@ -17,9 +17,9 @@ export default compose(
     formatDay: date => moment(date).format('dddd'),
   }),
   withHandlers({
-    zoomOut: props => e => props.setZoomWidth(props.zoomWidth-25),
-    zoomIn: props => e => props.setZoomWidth(props.zoomWidth+25),
-    editEvent: props => ({id, name}) => {
+    zoomOut: props => e => props.setZoomWidth(props.zoomWidth - 25),
+    zoomIn: props => e => props.setZoomWidth(props.zoomWidth + 25),
+    editEvent: props => ({ id, name }) => {
       props.setEditingEventText(name)
       props.setEditingEventId(id)
     },
