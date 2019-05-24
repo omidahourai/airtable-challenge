@@ -7,6 +7,9 @@ const data = handleActions({
 // const events = handleActions({
 //   ACTION: (state, { payload }) => payload,
 // }, [])
+const zoom = handleActions({
+  ZOOM_SET: (state, { payload }) => payload,
+}, 100)
 
 // const visibleTimeline = handleActions({
 //   INIT_TIMELINE: (state, { payload }) => payload,
@@ -14,6 +17,7 @@ const data = handleActions({
 
 export default {
   data,
+  zoom,
   // events,
   // visibleTimeline,
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import App from 'containers/App'
+import App from 'components/App'
 import events from 'data/mockEvents'
 import GlobalStyles from 'styles/global'
 import { render } from 'react-dom'

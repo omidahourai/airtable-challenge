@@ -11,6 +11,12 @@ const normalizeDate = date => {
   return date
 }
 
+export const getEvent = createSelector(
+  [(state, id) => id, getEvents],
+  (id, events) => events.find(e => e.id === id)
+)
+// const getEvent = (state, {id}) => state.data.events.find(e => e.id === id)
+
 const getEventsSortedByStartDates = createSelector(
   [getEvents],
   events => events.sort((a, b) => (a.start < b.start ? -1 : 0))

@@ -38,3 +38,19 @@ export const Button = styled.button`
     box-shadow: inset 2px 2px 10px rgba(0, 0, 0, 0.25);
   }
 `
+
+export const Input = styled.input`
+  display: block;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #55595c;
+  background-color: #fff;
+  background-image: none;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  margin: 0 5px;
+  height: 100%;
+  padding-left: 5px;
+`
