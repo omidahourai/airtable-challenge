@@ -1,8 +1,6 @@
 import moment from 'moment'
 import TimelineEvent from 'components/TimelineEvent'
-import { connect } from 'react-redux'
 import { compose, flattenProp, withProps, withState, withHandlers } from 'recompose'
-import * as selectors from 'selectors'
 
 export default compose(
   flattenProp('event'),
@@ -21,5 +19,4 @@ export default compose(
       setTimeout(() => props.inputRef.focus(), 0)
     },
   }),
-  withProps(props => console.log('event',props))
 )(TimelineEvent)
