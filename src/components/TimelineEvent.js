@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Input } from 'components/Base'
+import Draggable from 'components/Draggable'
 
 const Text = styled.p`
   margin: 0;
@@ -12,8 +13,8 @@ const Text = styled.p`
 `
 const Wrapper = styled.div`
   height: 24px;
-  grid-row-start: ${({ row }) => (row ? row + 2 : 2)};
-  grid-column-end: span ${({ col }) => col || 1};
+  /* grid-row-start: ${({ row }) => (row ? row + 2 : 2)};
+  grid-column-end: span ${({ col }) => col || 1}; */
   padding: 6px 0;
   border-radius: 4px;
   background-color: ${({ bg }) => bg || '#CCC'};
@@ -41,6 +42,7 @@ const Wrapper = styled.div`
 
 export default props => (
   <Wrapper
+    id={'wrap'}
     isEditing={props.isEditing}
     key={props.id}
     row={props.rowSpan}
