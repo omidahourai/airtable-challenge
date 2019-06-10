@@ -15,7 +15,6 @@ export default compose(
     onChangeText: props => e => props.setText(e.target.value),
     onBlurInput: props => e => {
       props.setEditing(false)
-      console.log('blurr')
     },
     onEditEvent: props => e => {
       props.setEditing(true)

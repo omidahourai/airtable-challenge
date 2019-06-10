@@ -42,7 +42,7 @@ const Wrapper = styled.div`
 
 export default props => (
   <Wrapper
-    id={'wrap'}
+    id={props.id}
     isEditing={props.isEditing}
     key={props.id}
     row={props.rowSpan}

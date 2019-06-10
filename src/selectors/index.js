@@ -15,7 +15,13 @@ export const getEvent = createSelector(
   [(state, id) => id, getEvents],
   (id, events) => events.find(e => e.id === id)
 )
-// const getEvent = (state, {id}) => state.data.events.find(e => e.id === id)
+
+export const offsetDate = (state, date, daysOffset) => {
+  const d = normalizeDate(new Date(date))
+  d.setDate(d.getDate()+daysOffset)
+  const offset = moment(d).format('YYYY-MM-DD')
+  return offset
+}
 
 const getEventsSortedByStartDates = createSelector(
   [getEvents],
