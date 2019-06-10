@@ -1,5 +1,8 @@
 # Airtable Challenge
 
+**EDIT 06/10/2019**
+> Native drag enhancement added, although it still has some nuiances (if you drag too quickly it can lose focus).
+
 **Requirements**
 ```
 node >=10.14.2
