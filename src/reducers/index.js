@@ -1,23 +1,27 @@
 import { handleActions } from 'redux-actions'
 
 const data = handleActions({
-  ACTION: (state, { payload }) => payload,
+  EVENT_DATES_SET: (state, { payload }) => ({
+    events: state.events.map(event => (
+      event.id !== payload.id ? event : ({
+        ...event,
+        start: payload.start,
+        end: payload.end,
+      })
+    )),
+  }),
 }, {events: []})
 
-// const events = handleActions({
-//   ACTION: (state, { payload }) => payload,
-// }, [])
+const activeColumn = handleActions({
+  COLUMN_ACTIVE: (state, { payload }) => payload,
+}, null)
+
 const zoom = handleActions({
   ZOOM_SET: (state, { payload }) => payload,
 }, 100)
 
-// const visibleTimeline = handleActions({
-//   INIT_TIMELINE: (state, { payload }) => payload,
-// }, [])
-
 export default {
   data,
   zoom,
-  // events,
-  // visibleTimeline,
+  activeColumn,
 }

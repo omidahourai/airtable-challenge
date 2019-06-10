@@ -13,7 +13,9 @@ export default compose(
   }),
   withHandlers({
     onChangeText: props => e => props.setText(e.target.value),
-    onBlurInput: props => e => props.setEditing(false),
+    onBlurInput: props => e => {
+      props.setEditing(false)
+    },
     onEditEvent: props => e => {
       props.setEditing(true)
       setTimeout(() => props.inputRef.focus(), 0)

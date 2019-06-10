@@ -25,7 +25,12 @@ const Header = styled.div`
 `
 const Column = styled.div`
   display: contents;
-  & > * { grid-column-start: ${({ col }) => col}; }
+  & > * {
+    grid-column-start: ${({ col }) => col};
+    ${({highlight}) => highlight && `
+      background-color: #b5ddff !important;
+    `}
+  }
 `
 const Wrapper = styled.div`
   position: absolute;
@@ -40,7 +45,7 @@ const Wrapper = styled.div`
 export default props => (
   <Wrapper zoom={props.zoom} col={props.timeline.length}>
     {props.timeline.map((_, idx) => (
-      <Column key={idx} col={idx + 1}>
+      <Column key={idx} col={idx + 1} {...props} highlight={props.activeColumn && props.activeColumn === idx+1}>
         <Header bg={idx % 2 === 0 ? '#FFF' : '#F6F6F6'}>
           <div>&nbsp;</div>
           <div>&nbsp;</div>
