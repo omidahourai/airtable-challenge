@@ -16,6 +16,9 @@ yarn install
 
 # start dev server
 yarn dev
+
+# run integration tests with Cypress
+yarn test:integration
 ```
 
 * How long you spent on the assignment.

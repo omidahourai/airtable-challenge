@@ -8,6 +8,7 @@
     "yarn": ">=1.15.2"
   },
   "dependencies": {
+    "cypress": "^3.3.1",
     "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -26,6 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "test:integration": "$(npm bin)/cypress open",
     "env:dev": "env-cmd -f .env.development",
     "dev": "yarn env:dev yarn start",
     "format": "node ./node_modules/prettier/bin-prettier --config .prettierrc --write 'src/**/*.js'"

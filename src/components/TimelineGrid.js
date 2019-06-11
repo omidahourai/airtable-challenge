@@ -34,10 +34,13 @@ const Wrapper = styled.div`
 `
 
 export default props => (
-  <Wrapper zoom={props.zoom} col={props.timeline.length}>
+  <Wrapper zoom={props.zoom} col={props.timeline.length} data-test={'timeline-grid'}>
     {props.timeline.map(({ date, events }, idx) => (
       <Column key={date} col={idx + 1}>
-        <Header col={idx+1}>
+        <Header
+          col={idx+1}
+          data-test={'col-header'}
+        >
           <div>{props.formatDate(date)}</div>
           <div>{props.formatDay(date)}</div>
         </Header>
@@ -47,6 +50,7 @@ export default props => (
             col={idx+1}
             colSpan={event.colSpan}
             rowSpan={event.rowSpan}
+            data-test={'drag-item'}
           >
             <Event event={event} />
           </DragGridItem>

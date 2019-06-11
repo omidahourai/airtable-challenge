@@ -43,6 +43,7 @@ const Wrapper = styled.div`
 export default props => (
   <Wrapper
     id={props.id}
+    data-test={'event'}
     isEditing={props.isEditing}
     key={props.id}
     row={props.rowSpan}
