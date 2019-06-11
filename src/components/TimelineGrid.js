@@ -1,7 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import Event from 'containers/TimelineEvent'
-import Draggable from 'components/Draggable'
+import Draggable from 'containers/Draggable'
+
+const DragGridItem = styled(Draggable)`
+  grid-column-start: ${({ col }) => col};
+  grid-row-start: ${({ rowSpan }) => (rowSpan ? rowSpan + 2 : 2)};
+  grid-column-end: span ${({ colSpan }) => colSpan || 1};
+`
 
 const Header = styled.div`
   text-align: center;
@@ -11,7 +17,6 @@ const Header = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   z-index: 1;
-  grid-column-start: ${({ col }) => col};
 `
 const Column = styled.div`
   display: contents;
@@ -31,30 +36,22 @@ const Wrapper = styled.div`
 export default props => (
   <Wrapper zoom={props.zoom} col={props.timeline.length}>
     {props.timeline.map(({ date, events }, idx) => (
-      <React.Fragment key={date}>
-      {/*
       <Column key={date} col={idx + 1}>
-      */}
         <Header col={idx+1}>
           <div>{props.formatDate(date)}</div>
           <div>{props.formatDay(date)}</div>
         </Header>
         {events.map(event => (
-          <Draggable
-          colSpan={event.colSpan}
-          rowSpan={event.rowSpan}
-          col={idx+1} key={event.id}>
-            <Event
-              key={event.id}
-              event={event}
-            />
-          </Draggable>
+          <DragGridItem
+            key={event.id}
+            col={idx+1}
+            colSpan={event.colSpan}
+            rowSpan={event.rowSpan}
+          >
+            <Event event={event} />
+          </DragGridItem>
         ))}
-      {/*
-        </Column>
-      */}
-      </React.Fragment>
-
+      </Column>
     ))}
   </Wrapper>
 )
