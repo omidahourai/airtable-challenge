@@ -36,7 +36,7 @@ const Wrapper = styled.div`
 export default props => (
   <Wrapper zoom={props.zoom} col={props.timeline.length} data-test={'timeline-grid'}>
     {props.timeline.map(({ date, events }, idx) => (
-      <Column key={date} col={idx + 1}>
+      <Column key={date} data-test-date={props.formatDate(date)} col={idx + 1} data-test={'grid-column'}>
         <Header
           col={idx+1}
           data-test={'col-header'}

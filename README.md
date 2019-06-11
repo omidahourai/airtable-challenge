@@ -18,6 +18,7 @@ yarn install
 yarn dev
 
 # run integration tests with Cypress
+# NOTE: Must have dev server running
 yarn test:integration
 ```
 
